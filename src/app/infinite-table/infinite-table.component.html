@@ -1,0 +1,46 @@
+<div class="container">
+    <form [formGroup]="characterFilterForm">
+        <div class="search-container">
+            <app-search-character-name (search)="onSearchName($event)"></app-search-character-name>
+        </div>
+
+        <div aria-describedby="container" class="table-container">
+            <div class="main-heading-row">
+                <h1>Rick & Morty character test</h1>
+                <img src="../refresh_24.svg" alt="refresh table results" aria-describedby="refresh" (click)="refreshTable()">
+            </div>
+            <table>
+            <thead>
+                <tr>
+                <th>Character ID</th>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Origin</th>
+                <th>Creation</th>
+                <th>Status</th>
+                </tr>
+            </thead>
+            <thead class="table-head-filter-row">
+                <tr>
+                <th><input id="characterId" formControlName="characterId" type="text" placeholder="Enter Character ID" (input)="onCharacterIdFilter($event)"></th>
+                <th><input id="name" formControlName="name" type="text" placeholder="Enter Name" (input)="onNameFilter($event)"></th>
+                <th><input id="location" formControlName="location" type="text" placeholder="Enter Location" (input)="onLocationFilter($event)"></th>
+                <th><input id="origin" formControlName="origin" type="text" placeholder="Enter Origin" (input)="onOriginFilter($event)"></th>
+                <th><input id="created" formControlName="created" type="text" placeholder="Enter Date" (input)="onDateFilter($event)"></th>
+                <th><input id="status" formControlName="status" type="text" placeholder="Enter Status" (input)="onStatusFilter($event)"></th>
+                </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="onScroll()">
+                <tr *ngFor="let character of characters">
+                <td class="character-id">00000{{ character.id }}</td>
+                <td>{{ character.name }}</td>
+                <td>{{ character.location.name }}</td>
+                <td>{{ character.origin.name }}</td>
+                <td>{{ character.created | date: 'MM-dd-yyyy' }}</td>
+                <td><span class="status-prepend-circle" [ngStyle]="{'background-color': getStatusPrepend(character.status).color}">{{ getStatusPrepend(character.status).letter }}<img *ngIf="getStatusPrepend(character.status).icon" src="./assets/person.svg" alt="person icon for unknown status" aria-describedby="status"/></span> {{ character.status }}</td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+    </form>
+</div>

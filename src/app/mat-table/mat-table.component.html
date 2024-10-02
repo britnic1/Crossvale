@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="search-container">
+        <input matInput (keyup)="applyNameFilter($event)" placeholder="Enter Name" #inputNameSearch>
+    </div>
+
+    <div aria-describedby="container" class="table-container">
+        <h1>Rick & Morty character test</h1>
+
+
+    <input matInput (keyup)="applyCharacterIdFilter($event)" placeholder="Enter Character ID" #inputCharacterId>
+    <input matInput (keyup)="applyNameFilter($event)" placeholder="Enter Name" #inputName>
+    <input matInput (keyup)="applyLocationFilter($event)" placeholder="Enter Location" #inputLocation>
+    <input matInput (keyup)="applyOriginFilter($event)" placeholder="Enter Origin" #inputOrigin>
+    <input matInput (keyup)="applyDateFilter($event)" placeholder="Enter Date" #inputDate>
+    <input matInput (keyup)="applyStatusFilter($event)" placeholder="Enter Status" #inputStatus>
+  
+    <mat-table mat-table [dataSource]="dataSource" matSort matSortActive="name" matSortDirection="asc" matSortDisableClear>
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Character ID</th>
+        <td mat-cell *matCellDef="let character">{{ character.id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <td mat-cell *matCellDef="let character">{{ character.name }}</td>
+    </ng-container>
+  
+    <ng-container matColumnDef="location">
+      <th mat-header-cell *matHeaderCellDef>Location</th>
+      <td mat-cell *matCellDef="let character">{{ character.location.name }}</td>
+    </ng-container>
+  
+    <ng-container matColumnDef="origin">
+      <th mat-header-cell *matHeaderCellDef>Origin</th>
+      <td mat-cell *matCellDef="let character">{{ character.origin.name }}</td>
+    </ng-container>
+  
+    <ng-container matColumnDef="created">
+      <th mat-header-cell *matHeaderCellDef>Creation</th>
+      <td mat-cell *matCellDef="let character">{{ character.created | date: 'MM-dd-yyyy' }}</td>
+    </ng-container>
+  
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let character">{{ character.status }}</td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </mat-table>
+
+
+</div>
+  
